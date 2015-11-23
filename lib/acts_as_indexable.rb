@@ -1,0 +1,2 @@
+module ActsAsIndexable
+end
