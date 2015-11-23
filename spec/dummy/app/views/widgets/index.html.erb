@@ -1,0 +1,21 @@
+<h1>Widgets#index</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+    <% decorated_attrs.each do |attr|  %>
+      <th><%= attr.label %></th>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  <% Widget.all.each do |obj| %>
+    <tr>
+    <% decorated_attrs.each do |attr|  %>
+      <%= content_tag :td, attr.l(obj), class: attr.try(:klass) %>
+    <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
