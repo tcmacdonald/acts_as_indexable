@@ -4,12 +4,14 @@ module ActsAsIndexable
 
     attr_accessor :key,
                   :label,
+                  :attrs,
                   :path
 
     def initialize(key, attrs={})
       @key = key
-      @label = attrs.try(:[], :label) || @key.to_s.humanize
-      @path = attrs.try(:[], :link_to)
+      @attrs = attrs
+      @label = @attrs.try(:[], :label) || @key.to_s.humanize
+      @path = @attrs.try(:[], :link_to)
     end
 
     def l(ctx)
@@ -18,6 +20,7 @@ module ActsAsIndexable
 
     def href(ctx, path=nil)
       path ||= @path
+
       if path.present?
         if path.to_s == 'self'
           ctx
@@ -31,18 +34,19 @@ module ActsAsIndexable
     end
 
     def link_to_actions(ctx)
-      "#{_edit(ctx)} #{_delete(ctx)}".html_safe
+      @attrs.to_h.collect do |k,v|
+        label = v.try(:[], :label) || k.to_s.humanize
+        opts = {}
+        if k == :delete
+          opts[:data] = { method: :delete, confirm: 'Are you sure?' }
+          path = v.try(:[], :link_to) || "/#{ctx.class.name.underscore.pluralize}/:id"
+        else
+          path = v.try(:[], :link_to) || "/#{ctx.class.name.underscore.pluralize}/:id/#{k}"
+        end
+
+        link_to label, href(ctx, path), opts.merge(v.except(:link_to, :label))
+      end.join().html_safe
     end
-
-    private
-
-      def _edit(ctx)
-        link_to 'Edit', href(ctx, "/#{ctx.class.name.underscore.pluralize}/:id/edit")
-      end
-
-      def _delete(ctx)
-        link_to 'Delete', href(ctx, "/#{ctx.class.name.underscore.pluralize}/:id"), method: :delete, confirm: 'Are you sure?'
-      end
 
   end
 end

@@ -1,4 +1,4 @@
-  <tr>
+  <tr id="<%= dom_id(row) %>">
   <% decorated_attrs.each do |attr|  %>
     <%= content_tag :td, class: attr.try(:klass) do %>
       <% if attr.key == :actions %>

@@ -4,12 +4,15 @@ class WidgetsController < ApplicationController
   protected
 
     def current_attrs
-      [
-        { key: :id },
-        { key: :title, link_to: :self },
-        { key: :body },
-        { key: :actions },
-      ]
+      {
+        id: {},
+        title: { link_to: :self },
+        body: {},
+        actions: {
+          edit: {},
+          delete: {}
+        }
+      }
     end
 
 end

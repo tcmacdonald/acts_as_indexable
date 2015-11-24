@@ -32,4 +32,48 @@ describe ActsAsIndexable::View do
     expect(page).to have_link(@widgets.first.to_s)
   end
 
+  context 'with an actions column' do
+
+    before do
+      @attrs[:actions] = {
+        edit: {},
+        delete: {}
+      }
+    end
+
+    it 'should render restful links by default' do
+      visit root_path
+      within("#widget_#{@widgets.first.id}") do
+        expect(page).to have_link('Edit', href: "/widgets/#{@widgets.first.id}/edit")
+        expect(page).to have_link('Delete', href: "/widgets/#{@widgets.first.id}")
+      end
+    end
+
+    it 'should observe link_to value for each action' do
+      @attrs[:actions][:edit][:link_to] = '/some/path/with/some/:id/here'
+      visit root_path
+      within("#widget_#{@widgets.first.id}") do
+        expect(page).to have_link('Edit', href: "/some/path/with/some/#{@widgets.first.id}/here")
+      end
+    end
+
+    it 'should observe label value for each action' do
+      @attrs[:actions][:edit][:label] = 'Testing'
+      visit root_path
+      within("#widget_#{@widgets.first.id}") do
+        expect(page).to have_link('Testing')
+      end
+    end
+
+    it 'should pass along any custom attributes for each each action' do
+      @attrs[:actions][:edit][:class] = 'some-class-selector'
+      @attrs[:actions][:edit][:data] = { role: 'some-role' }
+      visit root_path
+      within("#widget_#{@widgets.first.id}") do
+        expect(page).to have_xpath("//a[@class='some-class-selector']")
+        expect(page).to have_xpath("//a[@data-role='some-role']")
+      end
+    end
+
+  end
 end
