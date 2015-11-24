@@ -1,7 +1,11 @@
   <tr>
   <% decorated_attrs.each do |attr|  %>
     <%= content_tag :td, class: attr.try(:klass) do %>
-      <%= link_to_if attr.link_to.present?, attr.l(row), attr.href(row) %>
+      <% if attr.key == :actions %>
+        <%= attr.link_to_actions(row) %>
+      <% else %>
+        <%= link_to_if attr.path.present?, attr.l(row), attr.href(row) %>
+      <% end %>
     <% end %>
   <% end %>
   </tr>

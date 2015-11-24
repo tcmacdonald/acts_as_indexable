@@ -8,7 +8,7 @@ class WidgetsController < ApplicationController
         { key: :id },
         { key: :title, link_to: :self },
         { key: :body },
-        { key: :created_at }
+        { key: :actions },
       ]
     end
 

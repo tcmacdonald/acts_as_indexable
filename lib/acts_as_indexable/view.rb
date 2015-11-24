@@ -9,16 +9,16 @@ module ActsAsIndexable
     protected
 
       def current_attrs
-        @current_attrs ||= [
-          { key: :id, label: 'ID' },
-          { key: :to_s, label: 'Name' },
-          { key: :created_at }
-        ]
+        @current_attrs ||= {
+          id: {},
+          to_s: {},
+          created_at: {},
+        }
       end
 
       def decorated_attrs
-        @decorated_attrs ||= current_attrs.collect do |attr|
-          Attribute.new OpenStruct.new(attr)
+        @decorated_attrs ||= current_attrs.collect do |k,v|
+          Attribute.new k, OpenStruct.new(v)
         end
       end
 

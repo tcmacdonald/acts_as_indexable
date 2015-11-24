@@ -4,7 +4,7 @@ describe ActsAsIndexable::Attribute do
 
   before do
     @widget = create(:widget)
-    @col = ActsAsIndexable::Attribute.new({ key: :id })
+    @col = ActsAsIndexable::Attribute.new(:id, {})
   end
 
   it 'should respond_to key' do
@@ -21,12 +21,12 @@ describe ActsAsIndexable::Attribute do
   end
 
   it 'should return context object if link_to value equals self' do
-    @col = ActsAsIndexable::Attribute.new({ key: :id, link_to: :self })
+    @col = ActsAsIndexable::Attribute.new(:id, { link_to: :self })
     expect(@col.href(@widget)).to eq(@widget)
   end
 
   it 'should return interpolated path if link_to value contains :id' do
-    @col = ActsAsIndexable::Attribute.new({ key: :id, link_to: '/widgets/:id/edit' })
+    @col = ActsAsIndexable::Attribute.new(:id, { link_to: '/widgets/:id/edit' })
     expect(@col.href(@widget)).to eq("/widgets/#{@widget.id}/edit")
   end
 
