@@ -1,0 +1,9 @@
+<%= content_tag :table, local_assigns.try(:[], :opts) do %>
+  <%= render 'acts_as_indexable/thead' %>
+  <% if local_assigns[:collection].present? %>
+    <tbody>
+      <%= render partial: 'acts_as_indexable/row', collection: local_assigns[:collection] %>
+    </tbody>
+  <% end %>
+<% end %>
+

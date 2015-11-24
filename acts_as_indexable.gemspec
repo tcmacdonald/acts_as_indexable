@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.require_paths = ["lib"]
+  s.require_paths = ['lib','app']
 
   s.add_dependency "rails", "~> 4.2.3"
 

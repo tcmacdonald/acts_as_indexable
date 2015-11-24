@@ -1,0 +1,7 @@
+  <tr>
+  <% decorated_attrs.each do |attr|  %>
+    <%= content_tag :td, class: attr.try(:klass) do %>
+      <%= link_to_if attr.try(:href), attr.l(row), row %>
+    <% end %>
+  <% end %>
+  </tr>

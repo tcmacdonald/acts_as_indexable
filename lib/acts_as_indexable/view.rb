@@ -1,5 +1,5 @@
 module ActsAsIndexable
-  module Index
+  module View
     extend ActiveSupport::Concern
 
     included do
@@ -18,7 +18,7 @@ module ActsAsIndexable
 
       def decorated_attrs
         @decorated_attrs ||= current_attrs.collect do |attr|
-          Column.new OpenStruct.new(attr)
+          Attribute.new OpenStruct.new(attr)
         end
       end
 

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe ActsAsIndexable::Column do
+describe ActsAsIndexable::Attribute do
 
   before do
-    @col = ActsAsIndexable::Column.new({ key: :id })
+    @col = ActsAsIndexable::Attribute.new({ key: :id })
   end
 
   it 'should respond_to key' do
@@ -11,7 +11,7 @@ describe ActsAsIndexable::Column do
   end
 
   it 'should return label' do
-    allow_any_instance_of(ActsAsIndexable::Column).to receive(:label).and_return('Something')
+    allow_any_instance_of(ActsAsIndexable::Attribute).to receive(:label).and_return('Something')
     expect(@col.label).to eq('Something')
   end
 
