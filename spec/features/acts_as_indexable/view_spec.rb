@@ -24,4 +24,12 @@ describe ActsAsIndexable::View do
     expect(page.find('thead').text).to match('Name Body')
   end
 
+  it 'should link to self' do
+    # Set label key on the first attr object
+    @attrs[0][:link_to] = :self
+
+    visit root_path
+    expect(page).to have_link(@widgets.first.to_s)
+  end
+
 end
