@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version       = ActsAsIndexable::VERSION
   s.authors       = ["Taylor C. MacDonald"]
   s.email         = ["tcmacdonald@gmail.com"]
-  s.homepage      = "TODO"
+  s.homepage      = "https://github.com/tcmacdonald/acts_as_indexable"
   s.summary       = "Provides utilities for building and extending index views."
   s.description   = s.summary
   s.license       = "MIT"
