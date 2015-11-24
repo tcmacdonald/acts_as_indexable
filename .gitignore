@@ -10,6 +10,7 @@
 /tmp/
 /spec/dummy/tmp/
 /spec/dummy/log/
+/spec/dummy/db/*sqlite3
 
 ## Specific to RubyMotion:
 .dat*
