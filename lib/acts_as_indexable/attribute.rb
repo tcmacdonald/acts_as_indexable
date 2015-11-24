@@ -18,15 +18,14 @@ module ActsAsIndexable
       ctx.send(@key)
     end
 
-    def href(ctx, path=nil)
-      path ||= @path
-
+    def href(ctx, href=nil)
+      path = href || @path
       if path.present?
         if path.to_s == 'self'
           ctx
-        elsif
-          path.scan(/:[a-z]*/).each do |attr|
-            path.gsub!(/#{attr}/, ctx.send(attr[1..-1].to_sym).to_s)
+        else
+          path.scan(/:[a-z_]*/).each do |attr|
+            path = path.gsub(/#{attr}/, ctx.send(attr[1..-1].to_sym).to_s)
           end
           path
         end
