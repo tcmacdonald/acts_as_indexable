@@ -41,7 +41,7 @@ module ActsAsIndexable
     end
 
     def link_to_actions(ctx)
-      @attrs.to_h.collect do |k,v|
+      @attrs.to_h.select{|k,v| v.is_a?(Hash) }.collect do |k,v|
         label = v.try(:[], :label) || k.to_s.humanize
         opts = {}
         if k == :delete

@@ -96,5 +96,13 @@ describe ActsAsIndexable::View do
       end
     end
 
+    it 'should observe label for column header' do
+      @attrs[:actions][:label] = 'CTAs'
+      visit root_path
+      within('thead') do
+        expect(page).to have_content('CTAs')
+      end
+    end
+
   end
 end

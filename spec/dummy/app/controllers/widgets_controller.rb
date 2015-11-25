@@ -9,6 +9,7 @@ class WidgetsController < ApplicationController
         title: { link_to: :self },
         body: {},
         actions: {
+          label: 'Something',
           edit: {},
           delete: {}
         }
