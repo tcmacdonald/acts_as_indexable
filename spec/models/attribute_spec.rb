@@ -30,4 +30,10 @@ describe ActsAsIndexable::Attribute do
     expect(@col.href(@widget)).to eq("/widgets/#{@widget.id}/edit")
   end
 
+  it 'should return formatted date object' do
+    @col = ActsAsIndexable::Attribute.new(:created_at, { format: :short })
+    formatted_date = I18n.l Widget.first.created_at, format: @col.format
+    expect(@col.l(Widget.first)).to eq(formatted_date)
+  end
+
 end

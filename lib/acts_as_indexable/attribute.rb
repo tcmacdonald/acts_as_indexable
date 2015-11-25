@@ -5,6 +5,7 @@ module ActsAsIndexable
     attr_accessor :key,
                   :label,
                   :attrs,
+                  :format,
                   :path
 
     def initialize(key, attrs={})
@@ -12,10 +13,15 @@ module ActsAsIndexable
       @attrs = attrs
       @label = @attrs.try(:[], :label) || @key.to_s.humanize
       @path = @attrs.try(:[], :link_to)
+      @format = @attrs.try(:[], :format)
     end
 
     def l(ctx)
-      ctx.send(@key)
+      if @format.present?
+        I18n.l ctx.send(@key), format: @format
+      else
+        ctx.send(@key)
+      end
     end
 
     def href(ctx, href=nil)
