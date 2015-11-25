@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tcmacdonald/acts_as_indexable.svg)](https://travis-ci.org/tcmacdonald/acts_as_indexable)
+
 # acts_as_indexable
 
 This gem is a Rails engine that provides a configurable DSL for rendering tables in index views of your application. It works with any collection of enumerable objects, ActiveRecord or otherwise. 

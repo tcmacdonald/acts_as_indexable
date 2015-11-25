@@ -14,10 +14,10 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-
-
-
-
+task :migrate do
+  rakefile = File.expand_path('../spec/dummy/Rakefile', __FILE__)
+  sh("rake -f #{rakefile} db:create db:migrate db:seed db:test:prepare")
+end
 
 Bundler::GemHelper.install_tasks
 
