@@ -6,6 +6,7 @@ module ActsAsIndexable
                   :label,
                   :attrs,
                   :format,
+                  :partial,
                   :path
 
     def initialize(key, attrs={})
@@ -14,6 +15,7 @@ module ActsAsIndexable
       @label = @attrs.try(:[], :label) || @key.to_s.humanize
       @path = @attrs.try(:[], :link_to)
       @format = @attrs.try(:[], :format)
+      @partial = @attrs.try(:[], :partial)
     end
 
     def l(ctx)

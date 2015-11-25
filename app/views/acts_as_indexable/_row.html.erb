@@ -1,10 +1,14 @@
   <tr id="<%= dom_id(row) %>">
   <% decorated_attrs.each do |attr|  %>
     <%= content_tag :td, class: attr.try(:klass) do %>
-      <% if attr.key == :actions %>
-        <%= attr.link_to_actions(row) %>
+      <% if attr.partial.present? %>
+        <%= render partial: attr.partial, object: row %>
       <% else %>
-        <%= link_to_if attr.path.present?, attr.l(row), attr.href(row) %>
+        <% if attr.key == :actions %>
+          <%= attr.link_to_actions(row) %>
+        <% else %>
+          <%= link_to_if attr.path.present?, attr.l(row), attr.href(row) %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
