@@ -18,7 +18,7 @@ describe ActsAsIndexable::View do
   end
 
   it 'should render labels if defined' do
-    # Set label key on the first attr object
+    # Set key on the first attr object
     @attrs[:title][:label] = 'Name'
 
     visit root_path
@@ -26,7 +26,7 @@ describe ActsAsIndexable::View do
   end
 
   it 'should link to self' do
-    # Set label key on the first attr object
+    # Set key on the first attr object
     @attrs[:title][:link_to] = :self
 
     visit root_path
@@ -34,12 +34,22 @@ describe ActsAsIndexable::View do
   end
 
   it 'should render custom partial if defined' do
-    # Set label key on the first attr object
+    # Set key on the first attr object
     @attrs[:created_at][:partial] = 'date'
 
     visit root_path
     within("#widget_#{@widgets.first.id}") do
       expect(page).to have_content(@widgets.first.created_at.strftime('%B %Y'))
+    end
+  end
+
+  it 'should render CSS selectors on each td if defined' do
+    # Set key on the first attr object
+    @attrs[:title][:class] = 'some-class-selector'
+
+    visit root_path
+    within("#widget_#{@widgets.first.id}") do
+      expect(page).to have_css('td.some-class-selector')
     end
   end
 

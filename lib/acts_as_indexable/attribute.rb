@@ -55,5 +55,9 @@ module ActsAsIndexable
       end.join().html_safe
     end
 
+    def klass
+      @attrs.try(:[], :class)
+    end
+
   end
 end

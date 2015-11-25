@@ -68,6 +68,7 @@ Descriptions for the available customization options are as follows...
 |`label`|Customize the `th` element for each attribute|
 |`format`|Format the value according to current locale. Useful for customizing date/time objects|
 |`partial`|Path to custom partial for the contents of `td`|
+|`class`|Apply CSS selectors to `td` elements|
 
 
 # Actions
