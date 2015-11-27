@@ -22,18 +22,18 @@ describe ActsAsIndexable::Attribute do
 
   it 'should return context object if link_to value equals self' do
     @col = ActsAsIndexable::Attribute.new(:id, { link_to: :self })
-    expect(@col.href(@widget)).to eq(@widget)
+    expect(@col.send(:href, @widget)).to eq(@widget)
   end
 
   it 'should return interpolated path if link_to value contains :id' do
     @col = ActsAsIndexable::Attribute.new(:id, { link_to: '/widgets/:id/edit' })
-    expect(@col.href(@widget)).to eq("/widgets/#{@widget.id}/edit")
+    expect(@col.send(:href, @widget)).to eq("/widgets/#{@widget.id}/edit")
   end
 
   it 'should return formatted date object' do
     @col = ActsAsIndexable::Attribute.new(:created_at, { format: :short })
     formatted_date = I18n.l Widget.first.created_at, format: @col.format
-    expect(@col.l(Widget.first)).to eq(formatted_date)
+    expect(@col.send(:l, Widget.first)).to eq(formatted_date)
   end
 
 end

@@ -35,7 +35,7 @@ describe ActsAsIndexable::View do
 
   it 'should render custom partial if defined' do
     # Set key on the first attr object
-    @attrs[:created_at][:partial] = 'date'
+    @attrs[:created_at][:partial] = 'widgets/date'
 
     visit root_path
     within("#widget_#{@widgets.first.id}") do
@@ -51,6 +51,12 @@ describe ActsAsIndexable::View do
     within("#widget_#{@widgets.first.id}") do
       expect(page).to have_css('td.some-class-selector')
     end
+  end
+
+  it 'should render CSV' do
+    visit export_widgets_path
+    expect(page).to have_content('Title,Body,Created at')
+    expect(page).to have_content("#{@widgets.first.title},#{@widgets.first.body}")
   end
 
   context 'with an actions column' do
