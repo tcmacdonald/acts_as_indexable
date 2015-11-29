@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20151123200106) do
 
   create_table "widgets", force: :cascade do |t|
     t.string   "title"
+    t.string   "email"
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

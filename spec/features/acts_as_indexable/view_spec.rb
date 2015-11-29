@@ -7,6 +7,7 @@ describe ActsAsIndexable::View do
     @attrs = {
       title: {},
       body: {},
+      email: {},
       created_at: {}
     }
     allow_any_instance_of(WidgetsController).to receive(:current_attrs).and_return(@attrs)
@@ -33,6 +34,13 @@ describe ActsAsIndexable::View do
     expect(page).to have_link(@widgets.first.to_s)
   end
 
+  it 'should link to email' do
+    @attrs[:email][:link_to] = :email
+
+    visit root_path
+    expect(page).to have_link(@widgets.first.email, href: "mailto:#{@widgets.first.email}")
+  end
+
   it 'should render custom partial if defined' do
     # Set key on the first attr object
     @attrs[:created_at][:partial] = 'widgets/date'
@@ -55,7 +63,7 @@ describe ActsAsIndexable::View do
 
   it 'should render CSV' do
     visit export_widgets_path
-    expect(page).to have_content('Title,Body,Created at')
+    expect(page).to have_content('Title,Body,Email,Created at')
     expect(page).to have_content("#{@widgets.first.title},#{@widgets.first.body}")
   end
 

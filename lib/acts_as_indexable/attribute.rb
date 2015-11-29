@@ -56,7 +56,9 @@ module ActsAsIndexable
       def href(ctx, href=nil)
         path = href || @path
         if path.present?
-          if path.to_s == 'self'
+          if path.to_s == 'email'
+            "mailto:#{ctx.send(@key).to_s}"
+          elsif path.to_s == 'self'
             ctx
           else
             path.scan(/:[a-z_]*/).each do |attr|
