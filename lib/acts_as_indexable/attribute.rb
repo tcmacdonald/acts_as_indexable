@@ -9,28 +9,18 @@ module ActsAsIndexable
                   :partial,
                   :path
 
-    def initialize(key, attrs={})
+    def initialize(*args, &block)
       ActionView::Base.send(:include, Rails.application.routes.url_helpers)
       @helper = ActionController::Base.helpers
       @view = ActionView::Base.new(ActionController::Base.view_paths)
-
-      @key = key
-      @attrs = attrs
-      @label = @attrs.try(:[], :label) || @key.to_s.humanize
-      @path = @attrs.try(:[], :link_to)
-      @format = @attrs.try(:[], :format)
-      @partial = @attrs.try(:[], :partial)
+      extract_vars(*args, &block)
     end
 
-    def render(ctx, render_links: true)
+    def render(*args, &block)
       if @partial.present?
-        @view.render partial: @partial, object: ctx
+        render_partial(*args, &block)
       else
-        if @key == :actions
-          link_to_actions(ctx) if render_links
-        else
-          @helper.link_to_if (render_links && @path.present?), l(ctx), href(ctx)
-        end
+        render_column(*args, &block)
       end
     end
 
@@ -39,6 +29,21 @@ module ActsAsIndexable
     end
 
     protected
+
+      def render_partial(ctx, render_links: true, format: :html)
+        formats = [:html].unshift(format).uniq
+        @view.render(partial: @partial, object: ctx, formats: formats).squish
+      end
+
+      def render_column(ctx, render_links: true, format: :html)
+        if @key == :actions
+          link_to_actions(ctx) if render_links
+        else
+          @helper.link_to_if (render_links && @path.present?), l(ctx), href(ctx)
+        end
+      end
+
+    private
 
       def l(ctx)
         if @format.present?
@@ -75,6 +80,15 @@ module ActsAsIndexable
 
           @helper.link_to label, href(ctx, path), opts.merge(v.except(:link_to, :label))
         end.join().html_safe
+      end
+
+      def extract_vars(key, attrs={})
+        @key = key
+        @attrs = attrs
+        @label = @attrs.try(:[], :label) || @key.to_s.humanize
+        @path = @attrs.try(:[], :link_to)
+        @format = @attrs.try(:[], :format)
+        @partial = @attrs.try(:[], :partial)
       end
 
   end
