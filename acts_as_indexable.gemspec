@@ -27,5 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capybara-webkit', '~> 1.7', '>= 1.7.1'
   s.add_development_dependency 'factory_girl_rails', '~> 4.5', '>= 4.5.0'
   s.add_development_dependency 'pry', '~> 0.10', '>= 0.10.3'
+  s.add_development_dependency 'csvlint', '~> 0.2', '>= 0.2.6'
 
 end

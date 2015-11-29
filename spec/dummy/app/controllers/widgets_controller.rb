@@ -12,6 +12,7 @@ class WidgetsController < ApplicationController
         id: {},
         title: { link_to: :self },
         body: {},
+        created_at: { partial: 'widgets/date' },
         actions: {
           label: 'Something',
           edit: {},

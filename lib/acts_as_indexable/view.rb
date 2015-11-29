@@ -33,7 +33,7 @@ module ActsAsIndexable
           # rows
           collection.each do |obj|
             csv << attrs.collect do |attr|
-              attr.render(obj, render_links: false)
+              attr.render(obj, render_links: false, format: :csv)
             end
           end
         end
