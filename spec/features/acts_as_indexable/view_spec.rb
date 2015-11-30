@@ -67,6 +67,15 @@ describe ActsAsIndexable::View do
     expect(page).to have_content("#{@widgets.first.title},#{@widgets.first.body}")
   end
 
+  it 'should invoke functions passed via link_to' do
+    @attrs[:title][:link_to] = -> (obj) { [:edit, obj] }
+
+    visit root_path
+    within("#widget_#{@widgets.first.id}") do
+      expect(page).to have_link(@widgets.first.title, href: "/widgets/#{@widgets.first.id}/edit")
+    end
+  end
+
   context 'with an actions column' do
 
     before do

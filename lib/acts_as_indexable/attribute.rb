@@ -63,7 +63,9 @@ module ActsAsIndexable
       def href(ctx, href=nil)
         path = href || @path
         if path.present?
-          if path.to_s == 'email'
+          if path.try(:respond_to?, :call)
+            path.call(ctx)
+          elsif path.to_s == 'email'
             "mailto:#{ctx.send(@key).to_s}"
           elsif path.to_s == 'self'
             ctx
