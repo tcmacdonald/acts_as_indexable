@@ -88,7 +88,7 @@ module ActsAsIndexable
           end
 
           @helper.link_to label, href(ctx, path), opts.merge(v.except(:link_to, :label))
-        end.join().html_safe
+        end.join('&nbsp;').html_safe
       end
 
       def extract_vars(key, attrs={})
