@@ -17,8 +17,9 @@ ActiveRecord::Schema.define(version: 20151123200106) do
     t.string   "title"
     t.string   "email"
     t.text     "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "price",      precision: 8, scale: 2
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
 end

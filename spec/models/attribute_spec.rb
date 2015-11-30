@@ -36,4 +36,9 @@ describe ActsAsIndexable::Attribute do
     expect(@col.send(:l, Widget.first)).to eq(formatted_date)
   end
 
+  it 'should return formatted currency' do
+    @col = ActsAsIndexable::Attribute.new(:price, { format: :currency })
+    expect(@col.send(:l, @widget)).to eq('$12.50')
+  end
+
 end

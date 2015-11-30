@@ -4,6 +4,7 @@ class CreateWidgets < ActiveRecord::Migration
       t.string :title
       t.string :email
       t.text :body
+      t.decimal :price, precision: 8, scale: 2
 
       t.timestamps null: false
     end
