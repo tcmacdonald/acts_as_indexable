@@ -1,7 +1,7 @@
-  <tr id="<%= dom_id(row) %>">
+  <tr id="<%= dom_id(row) %>" class="<%= local_assigns.try(:[], :klass) %>">
   <% decorated_attrs.each do |attr|  %>
-    <%= content_tag :td, class: attr.try(:klass) do %>
+    <%= content_tag :td, class: attr.try(:klass), colspan: attr.try(:colspan, row) do %>
       <%= attr.render(row) %>
-    <% end %>
+    <% end if attr.is_visible?(row) %>
   <% end %>
   </tr>

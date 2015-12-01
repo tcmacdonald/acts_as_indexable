@@ -86,6 +86,42 @@ describe ActsAsIndexable::View do
     end
   end
 
+  it 'should support visibility' do
+    @attrs[:title][:visible] = false
+
+    visit root_path
+    within("#widget_#{@widgets.first.id}") do
+      expect(page).to_not have_content(@widgets.first.title)
+      total = all('td').count
+      expect(total).to eq(3)
+    end
+  end
+
+  it 'should invoke functions when evaluating visibility' do
+    @attrs[:title][:visible] = -> (obj) { false }
+
+    visit root_path
+    within("#widget_#{@widgets.first.id}") do
+      expect(page).to_not have_content(@widgets.first.title)
+      total = all('td').count
+      expect(total).to eq(3)
+    end
+  end
+
+  context 'with colspan declarations' do
+
+    it 'should support simple numbers' do
+      @attrs[:title][:colspan] = 2
+
+      visit root_path
+      within("#widget_#{@widgets.first.id}") do
+        td = all('td').first
+        expect(td.native.attributes.keys).to include('colspan')
+      end
+    end
+
+  end
+
   context 'with an actions column' do
 
     before do

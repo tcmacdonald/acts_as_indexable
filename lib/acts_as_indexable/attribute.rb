@@ -7,7 +7,10 @@ module ActsAsIndexable
                   :attrs,
                   :format,
                   :partial,
-                  :path
+                  :path,
+                  :span,
+                  :visible,
+                  :to_s
 
     def initialize(*args, &block)
       ActionView::Base.send(:include, Rails.application.routes.url_helpers)
@@ -28,6 +31,22 @@ module ActsAsIndexable
       @attrs.try(:[], :class)
     end
 
+    def is_visible?(obj)
+      if @visible.respond_to?(:call)
+        @visible.try(:call, obj)
+      else
+        @visible.nil? ? true : @visible
+      end
+    end
+
+    def colspan(obj)
+      if @span.respond_to?(:call)
+        @span.try(:call, obj)
+      else
+        @span || nil
+      end
+    end
+
     protected
 
       def render_partial(ctx, render_links: true, format: :html)
@@ -46,7 +65,13 @@ module ActsAsIndexable
     private
 
       def l(ctx)
-        if @format.present?
+        if @to_s.present?
+          if @to_s.respond_to?(:call)
+            @to_s.call(ctx)
+          else
+            @to_s
+          end
+        elsif @format.present?
           if @format.respond_to?(:call)
             @format.call(ctx)
           elsif @format == :currency
@@ -104,6 +129,9 @@ module ActsAsIndexable
         @path = @attrs.try(:[], :link_to)
         @format = @attrs.try(:[], :format)
         @partial = @attrs.try(:[], :partial)
+        @span = @attrs.try(:[], :colspan)
+        @visible = @attrs.try(:[], :visible)
+        @to_s = @attrs.try(:[], :to_s)
       end
 
   end
