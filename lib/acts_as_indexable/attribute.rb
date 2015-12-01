@@ -48,7 +48,9 @@ module ActsAsIndexable
       def l(ctx)
         if @format.present?
           v = ctx.send(@key)
-          if format == :currency
+          if @format.respond_to?(:call)
+            @format.call(ctx)
+          elsif @format == :currency
             @helper.number_to_currency(v)
           elsif v.kind_of?(Date) || v.kind_of?(Time)
             I18n.l v, format: @format

@@ -76,6 +76,16 @@ describe ActsAsIndexable::View do
     end
   end
 
+  it 'should invoke functions passed to format' do
+    str = 'the end of the world as we know it'
+    @attrs[:title][:format] = -> (obj) { str }
+
+    visit root_path
+    within("#widget_#{@widgets.first.id}") do
+      expect(page).to have_content(str)
+    end
+  end
+
   context 'with an actions column' do
 
     before do
