@@ -37,6 +37,10 @@ module ActsAsIndexable
             end
           end
         end
+
+        filename = "#{request.path[1..-1].gsub(/\//,'-')}-#{Time.zone.now.to_i}.csv"
+        response.headers['Content-Type'] = 'text/csv'
+        response.headers['Content-Disposition'] = "attachment; filename=#{filename}"
         render text: output
       end
 
