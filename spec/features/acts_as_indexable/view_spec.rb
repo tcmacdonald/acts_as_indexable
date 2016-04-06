@@ -31,7 +31,7 @@ describe ActsAsIndexable::View do
     @attrs[:title] = { label: 'Name', sort_by: 'title' }
 
     visit root_path
-    expect(page).should have_link('Name')
+    expect(page).to have_link('Name')
   end
 
   it 'should link to self' do
