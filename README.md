@@ -72,7 +72,7 @@ Descriptions for the available customization options are as follows...
 |`sort_by`|Creates parameterized links to head elements if present| 
 
 ## Sorting
-To sort, apply `sort_by` key/value to the desired parameter, with value being a string which your target controller will sort by. This will create linkable header with parameters for `?direction` and `?sort`. Implementing the ordering ordering functionality will need to be done on the target controller as well as overriding the `sort_order` and/or `sort_column` functions if needed
+To sort, apply `sort_by` key/value to the desired parameter, with value being a string which your target controller will sort by. This will create linkable header with parameters for `?direction` and `?sort`. Implementing the ordering functionality will need to be done on the target controller as well as overriding the `sort_order` and/or `sort_column` functions if needed
 
 # Actions
 
