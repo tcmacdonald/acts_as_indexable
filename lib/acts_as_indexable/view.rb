@@ -5,7 +5,7 @@ module ActsAsIndexable
     extend ActiveSupport::Concern
 
     included do
-      helper_method :decorated_attrs
+      helper_method :decorated_attrs, :sort_column, :sort_direction
     end
 
     protected
@@ -44,5 +44,12 @@ module ActsAsIndexable
         render text: output
       end
 
+      def sort_column
+        current_attrs.include?(params[:sort]) ? params[:sort] : ''
+      end
+
+      def sort_direction
+        %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
+      end
   end
 end

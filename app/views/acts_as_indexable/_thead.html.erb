@@ -1,7 +1,11 @@
   <thead>
     <tr>
     <% decorated_attrs.each do |attr|  %>
-      <th><%= attr.label %></th>
+      <% if attr.sort_by %>
+        <th><%= sortable attr.key.to_s, attr.label %></th>
+      <% else %>
+        <th><%= attr.label %></th>
+      <% end %>
     <% end %>
     </tr>
   </thead>

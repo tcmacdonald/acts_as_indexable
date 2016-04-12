@@ -4,6 +4,7 @@ module ActsAsIndexable
 
     attr_accessor :key,
                   :label,
+                  :sort_by,
                   :attrs,
                   :format,
                   :partial,
@@ -126,6 +127,7 @@ module ActsAsIndexable
         @key = key
         @attrs = attrs
         @label = @attrs.try(:[], :label) || @key.to_s.humanize
+        @sort_by = @attrs.try(:[], :sort_by) || false
         @path = @attrs.try(:[], :link_to)
         @format = @attrs.try(:[], :format)
         @partial = @attrs.try(:[], :partial)

@@ -26,6 +26,14 @@ describe ActsAsIndexable::View do
     expect(page.find('thead').text).to match('Name Body')
   end
 
+  it 'should render header links if defined' do
+
+    @attrs[:title] = { label: 'Name', sort_by: 'title' }
+
+    visit root_path
+    expect(page).to have_link('Name')
+  end
+
   it 'should link to self' do
     # Set key on the first attr object
     @attrs[:title][:link_to] = :self
